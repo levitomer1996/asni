@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./Components/Header/Header";
+import Main from "./Pages/Main";
+import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ModalProvider } from "./context/ModalContext";
+import GeneralModal from "./Components/Modal/GeneralModal";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <CartProvider>
+        <ModalProvider>
+          <Router>
+            <div>
+              <GeneralModal />
+              <Header />
+              <Main />
+            </div>
+          </Router>
+        </ModalProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
