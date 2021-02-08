@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "axios": "^0.21.1",
+    "credit-card": "^3.0.2",
     "email-validator": "^2.0.4",
     "google-map-react": "^2.1.9",
     "jsonwebtoken": "^8.5.1",

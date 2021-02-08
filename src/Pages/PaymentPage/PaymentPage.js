@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./Comps/AdressForm";
 import PaymentForm from "./Comps/PaymentForm";
 import Review from "./Comps/Review";
+import PaymentContext from "../../context/PaymentContext";
 
 function Copyright() {
   return (
@@ -81,6 +82,7 @@ function getStepContent(step) {
 }
 
 export default function PaymentPage() {
+  const { paymentState } = useContext(PaymentContext);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -98,15 +100,12 @@ export default function PaymentPage() {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Company name
+            דף תשלום
           </Typography>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
@@ -139,6 +138,7 @@ export default function PaymentPage() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    disabled={paymentState.isButtonDisabled}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "המשך"}
                   </Button>

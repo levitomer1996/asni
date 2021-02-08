@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import InputLabel from "@material-ui/core/InputLabel";
-import TextField from "@material-ui/core/TextField";
+
 import FormControl from "@material-ui/core/FormControl";
 import {
   withStyles,
@@ -63,7 +63,6 @@ const Input = withStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     border: "1px solid #ced4da",
     fontSize: 16,
-    width: theme.width ? theme.width : "auto",
     padding: "10px 12px",
 
     transition: theme.transitions.create(["border-color", "box-shadow"]),

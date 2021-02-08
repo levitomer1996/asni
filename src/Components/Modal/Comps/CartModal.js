@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import useStyles from "./Modal.style";
 import Button from "@material-ui/core/Button";
@@ -37,11 +37,15 @@ function CartModal() {
   const { cartState } = useContext(CartContext);
   const { setIsModalOpen } = useContext(ModalContext);
 
+  useEffect(() => {
+    if (redirect) {
+      setIsModalOpen();
+    }
+  }, [redirect]);
   const { products } = cartState;
   const handleSumbit = (price) => {
     if (price >= 52) {
       setRedirect(true);
-      setIsModalOpen();
     } else if (price < 52) {
       setError(true);
     }

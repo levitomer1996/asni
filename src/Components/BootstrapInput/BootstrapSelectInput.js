@@ -4,6 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
+import { Typography } from "@material-ui/core";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -56,14 +57,15 @@ export default function BootstrapSelectInput({
 
   return (
     <div>
-      <FormControl className={classes.margin}>
-        <InputLabel
-          shrink
-          htmlFor="bootstrap-input"
-          style={{ textAlign: "right" }}
-        >
-          {label}
-        </InputLabel>
+      <FormControl className={classes.margin} dir="rtl">
+        <label>
+          {" "}
+          <Typography
+            style={{ color: "rgba(0, 0, 0, 0.54)", fontFamily: "revert" }}
+          >
+            {label}
+          </Typography>
+        </label>
         <NativeSelect
           id="demo-customized-select-native"
           value={value}

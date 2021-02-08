@@ -9,6 +9,7 @@ import AdminPage from "./AdminPage/AdminPage";
 import useIsConnectedResolver from "../hooks/useIsConnectedResolver";
 import AccountPage from "./AccountPage.js/AccountPage";
 import PaymentPage from "./PaymentPage/PaymentPage";
+import { PaymentProvider } from "../context/PaymentContext";
 
 function Main() {
   const [isConnectedResolver] = useIsConnectedResolver();
@@ -42,7 +43,9 @@ function Main() {
         <AccountPage />
       </Route>
       <Route exact path="/payment">
-        <PaymentPage />
+        <PaymentProvider>
+          <PaymentPage />
+        </PaymentProvider>
       </Route>
     </Switch>
   );
