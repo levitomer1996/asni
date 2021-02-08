@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
-import { Grid } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { Grid, Typography } from "@material-ui/core";
 import useStyles from "./Modal.style";
 import Button from "@material-ui/core/Button";
 import CartContext from "../../../context/CartContext";
+import { Redirect } from "react-router";
+import ModalContext from "../../../context/ModalContext";
 const CartItem = (props) => {
   const { title, id, price, ammount } = props;
   return (
@@ -15,7 +17,7 @@ const CartItem = (props) => {
       style={{ padding: 20, borderBottom: "0.5px solid #80808047" }}
     >
       <Grid item>{title}</Grid>
-      <Grid item>x1</Grid>
+      <Grid item>{ammount}</Grid>
       <Grid item>{price}₪</Grid>
     </Grid>
   );
@@ -23,15 +25,28 @@ const CartItem = (props) => {
 function sumTotalPrice(list) {
   let total = 0;
   for (let index = 0; index < list.length; index++) {
-    total = total + list[index].price;
+    total = total + list[index].price * list[index].ammount;
   }
   return total;
 }
 
 function CartModal() {
+  const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState(null);
   const classes = useStyles();
   const { cartState } = useContext(CartContext);
+  const { setIsModalOpen } = useContext(ModalContext);
+
   const { products } = cartState;
+  const handleSumbit = (price) => {
+    if (price >= 52) {
+      setRedirect(true);
+      setIsModalOpen();
+    } else if (price < 52) {
+      setError(true);
+    }
+  };
+
   if (products.length === 0) {
     return (
       <div
@@ -46,12 +61,19 @@ function CartModal() {
       </div>
     );
   }
+
   return (
     <div>
+      {redirect ? <Redirect to="/payment" /> : null}
       <div className={classes.cart_container}>
         {products.map((prod) => {
           return (
-            <CartItem title={prod.title} price={prod.price} key={prod.id} />
+            <CartItem
+              title={prod.title}
+              price={prod.price}
+              key={prod.id}
+              ammount={prod.ammount}
+            />
           );
         })}
       </div>
@@ -67,10 +89,16 @@ function CartModal() {
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#d92c4b" }}
+          onClick={() => {
+            handleSumbit(sumTotalPrice(products));
+          }}
         >
           ₪{sumTotalPrice(products)} המשך לתשלום
         </Button>
       </div>
+      {error ? (
+        <Typography style={{ color: "red" }}>מינימום הזמנה 52₪</Typography>
+      ) : null}
     </div>
   );
 }

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import asni_server from "../api/asni_server";
+
 export default () => {
-  const [specials, setSpecials] = useState([]);
+  const [product, setProduct] = useState({});
   const [spinner, setSpinner] = useState(false);
-  const getSpecials = async () => {
+  const getProduct = async (id) => {
     try {
       setSpinner(true);
-      const res = await asni_server.get("/allspecials", {});
-      setSpecials(res.data);
+      const res = await asni_server.get(`getprodbyid/${id}`, {});
+      console.log(res.data);
+      setProduct(res.data);
       setSpinner(false);
     } catch (error) {
       setSpinner(false);
     }
   };
-  return [getSpecials, specials, spinner];
+  return [getProduct, product, spinner];
 };

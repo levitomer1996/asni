@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ModalProvider } from "./context/ModalContext";
 import GeneralModal from "./Components/Modal/GeneralModal";
 import { CartProvider } from "./context/CartContext";
+import StickyFooter from "./Components/StickyFooter/StickyFooter";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
               <GeneralModal />
               <Header />
               <Main />
+
+              <StickyFooter />
             </div>
           </Router>
         </ModalProvider>

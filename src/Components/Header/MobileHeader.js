@@ -12,12 +12,14 @@ const MobileHeader = () => {
   const classes = useStyles();
 
   return (
-    <header className={classes.mobile_root}>
-      <MobileMenu />
-      <CartIcon />
+    <header className={classes.mobile_root} dir="rtl">
       <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-        <Typography className={classes.logo}>𝕬𝖘𝖓𝖎</Typography>
+        <img src={"https://i.ibb.co/445msYV/cooltext375977447979069.png"}></img>
       </Link>
+      <div className={classes.mobile_icons_container}>
+        <CartIcon />
+        <MobileMenu />
+      </div>
     </header>
   );
 };

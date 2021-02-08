@@ -14,6 +14,7 @@ import CartContext from "../../context/CartContext";
 import useStyles from "./Comps/Card.style";
 import ShareIcon from "@material-ui/icons/Share";
 import ModalContext from "../../context/ModalContext";
+import { Link } from "react-router-dom";
 export default function ProductCard(props) {
   const { title, price, img_url, description, id, spinner, share_link } = props;
   const { setIsModalOpen } = useContext(ModalContext);
@@ -64,16 +65,22 @@ export default function ProductCard(props) {
             <ShareIcon />
           </IconButton>
         ) : null}
-        <Button variant="contained" color="primary" style={{ marginLeft: 20 }}>
-          צפה במוצר
-        </Button>
+        <Link to={share_link}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: 20 }}
+          >
+            צפה במוצר
+          </Button>
+        </Link>
         <Button
           variant="contained"
           color="primary"
           endIcon={<ShoppingCartIcon />}
           style={{ backgroundColor: "#890689" }}
           onClick={() => {
-            addProduct({ title, price, img_url, description });
+            addProduct({ title, price, img_url, description, id });
           }}
         >
           הוסף לעגלה

@@ -4,9 +4,10 @@ const AuthContext = React.createContext();
 const AuthReducer = (state, action) => {
   switch (action.type) {
     case "signin":
-      return { isLogged: true };
+      return { isLogged: true, user: action.payload };
     case "signout":
-      return { isLogged: false };
+      localStorage.removeItem("ut");
+      return { isLogged: false, user: {} };
     default:
       break;
   }
@@ -16,12 +17,13 @@ export const AuthProvider = ({ children }) => {
   //d = dispatch
   const [authState, d] = useReducer(AuthReducer, {
     isLogged: false,
+    user: {},
   });
   const dispatch = (type, payload) => {
     d({ type, payload });
   };
-  const Signin = () => {
-    dispatch("signin");
+  const Signin = (data) => {
+    dispatch("signin", data);
     return;
   };
   const Signout = () => {

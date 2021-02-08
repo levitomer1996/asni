@@ -4,31 +4,31 @@ import BootStrapInput from "../../Components/BootstrapInput/BootstrapInput";
 import { useStyles } from "./Comps/SignupPage.styles";
 import Button from "@material-ui/core/Button";
 import asni_server from "../../api/asni_server";
+import { Redirect } from "react-router";
+import { Typography, CircularProgress } from "@material-ui/core";
 function SignupPage() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [passord, setPassword] = useState("");
-  const [first_name, set_first_name] = useState("");
-  const [last_name, set_last_name] = useState("");
-
+  const [password, setPassword] = useState("");
+  const [firstName, set_first_name] = useState("");
+  const [lastName, set_last_name] = useState("");
+  const [spinner, setSpinner] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState(false);
   const handleSubmit = async () => {
     try {
-      console.log({
-        email,
-        passord,
-        first_name,
-        last_name,
-      });
-      const res = await asni_server.post(
-        "http://a580bbcb8d43.ngrok.io/signUp",
-        {
-          email,
-          passord,
-          first_name,
-          last_name,
-        }
-      );
-    } catch (error) {}
+      setError(false);
+      setSpinner(true);
+      const user_obj = { email, password, firstName, lastName };
+      const res = await asni_server.post("/signup", user_obj);
+      console.log(res.data);
+      setSpinner(false);
+      setRedirect(true);
+    } catch (err) {
+      console.log(err);
+      setError(true);
+      setSpinner(false);
+    }
   };
 
   return (
@@ -46,6 +46,7 @@ function SignupPage() {
         spacing={3}
         className={classes.root}
       >
+        {redirect ? <Redirect to="/" /> : null}
         <Grid item>
           <BootStrapInput
             label="אימייל"
@@ -84,6 +85,18 @@ function SignupPage() {
             הרשם
           </Button>
         </Grid>
+        {spinner ? (
+          <Grid item>
+            <CircularProgress
+              style={{ color: "rgb(177, 24, 177)", width: 60, height: 60 }}
+            />
+          </Grid>
+        ) : null}
+        {error ? (
+          <Grid item>
+            <Typography style={{ color: "red" }}>משהו התשבש בהרשמה</Typography>
+          </Grid>
+        ) : null}
       </Grid>
     </form>
   );

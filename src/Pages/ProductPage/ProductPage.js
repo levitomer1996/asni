@@ -22,6 +22,7 @@ const ProductPage = () => {
                 img_url={prod.img_url}
                 price={prod.price}
                 share_link={`/productdetails/${prod.id}`}
+                id={prod.id}
               />
             </div>
           );

@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import SignupPage from "./SignupPage/SignupPage";
 import SigninPage from "./Signin/SigninPage";
 import IndexPage from "./IndexPage.js/IndexPage";
 import ProductPage from "./ProductPage/ProductPage";
 import ProductDetailsPage from "./ProductDetailsPage/ProductDetailsPage";
+import AdminPage from "./AdminPage/AdminPage";
+import useIsConnectedResolver from "../hooks/useIsConnectedResolver";
+import AccountPage from "./AccountPage.js/AccountPage";
+import PaymentPage from "./PaymentPage/PaymentPage";
+
 function Main() {
+  const [isConnectedResolver] = useIsConnectedResolver();
+  useEffect(() => {
+    isConnectedResolver();
+  }, []);
   return (
     <Switch>
       <Route exact path="/">
@@ -25,6 +34,15 @@ function Main() {
       </Route>
       <Route path="/productdetails/:id">
         <ProductDetailsPage />
+      </Route>
+      <Route path="/asminadmin">
+        <AdminPage />
+      </Route>
+      <Route path="/accountpage/:section">
+        <AccountPage />
+      </Route>
+      <Route exact path="/payment">
+        <PaymentPage />
       </Route>
     </Switch>
   );

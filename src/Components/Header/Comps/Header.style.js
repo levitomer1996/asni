@@ -3,9 +3,8 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "80808008",
     padding: 20,
-    display: "flex",
-    justifyContent: "flex-start",
-    flexDirection: "row-reverse",
+    display: "grid",
+    gridTemplateColumns: "30% 55% 15%",
     alignItems: "center",
     borderBottom: "1.5px solid #00000012",
     [theme.breakpoints.down("sm")]: {
@@ -13,24 +12,39 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   logo: { fontSize: "xx-large", fontWeight: "bold" },
+  link_container: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   link: {
     textDecoration: "none",
     color: "gray",
-    fontSiz: "larger",
+    fontFamily: "revert",
+    fontSize: "20px",
     padding: 10,
     paddingRight: 50,
   },
+  icon: { fontSize: "2.5rem", color: "rgb(137, 6, 137)" },
   inner_link: {
     "&:hover": {
       borderBottom: "2px solid purple",
       fontWeight: "bold",
     },
   },
+  icons_container: { display: "flex", flexDirection: "row reverse" },
+  accountCicrcle_container: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   mobile_root: {
     backgroundColor: "80808008",
     padding: 20,
     display: "grid",
-    gridTemplateColumns: "60% 20% 20%",
+    gridTemplateColumns: "80% 20%",
     borderBottom: "1.5px solid #00000012",
     [theme.breakpoints.up("lg")]: {
       display: "none",
@@ -38,5 +52,11 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
+  },
+  mobile_icons_container: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));

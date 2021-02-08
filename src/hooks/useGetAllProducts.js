@@ -6,7 +6,9 @@ export default () => {
   const getAllProducts = async () => {
     try {
       setSpinner(true);
-      const res = await asni_server.get("/allproducts");
+      const res = await asni_server.get("/allproducts", {
+        headers: {},
+      });
       setSpinner(false);
       setProducts(res.data);
     } catch {

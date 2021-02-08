@@ -11,7 +11,6 @@ const ModalReducer = (state, action) => {
         params: action.payload.params,
       };
     case "set_modal_content":
-      console.log(action.payload);
       return { ...state, content: action.payload };
     default:
       break;

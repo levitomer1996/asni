@@ -5,8 +5,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { useStyles } from "./Header.style";
 
 export default function MobileMenu() {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -19,13 +21,8 @@ export default function MobileMenu() {
 
   return (
     <div>
-      <IconButton
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-        style={{ float: "left" }}
-      >
-        <MoreVertIcon />
+      <IconButton aria-controls="simple-menu" onClick={handleClick}>
+        <MoreVertIcon className={classes.icon} />
       </IconButton>
       <Menu
         id="simple-menu"
@@ -34,8 +31,8 @@ export default function MobileMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link to="product" style={{ textDecoration: "none", color: "black" }}>
-          <MenuItem onClick={handleClose}>Product</MenuItem>
+        <Link to="products" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem onClick={handleClose}>Products</MenuItem>
         </Link>
         <Link to="special" style={{ textDecoration: "none", color: "black" }}>
           <MenuItem onClick={handleClose}>Specials</MenuItem>

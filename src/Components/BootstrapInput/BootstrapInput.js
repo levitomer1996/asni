@@ -94,6 +94,8 @@ export default function BootStrapInput({
   onChangeFunction,
   rows,
   textArea,
+  autoComplete,
+  required,
 }) {
   const classes = useStyles();
   if (textArea) {
@@ -140,7 +142,9 @@ export default function BootStrapInput({
                     onChangeFunction(e.target.value);
                   }
             }
+            autoComplete={autoComplete}
             rows={rows ? rows : 1}
+            required={required ? true : false}
           />
         </FormControl>
       </ThemeProvider>
