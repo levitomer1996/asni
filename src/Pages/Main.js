@@ -47,6 +47,11 @@ function Main() {
           <PaymentPage />
         </PaymentProvider>
       </Route>
+      <Route exact path="/payment/complete">
+        <PaymentProvider>
+          <PaymentPage />
+        </PaymentProvider>
+      </Route>
     </Switch>
   );
 }

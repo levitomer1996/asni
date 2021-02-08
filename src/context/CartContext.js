@@ -1,3 +1,4 @@
+import { ReportTwoTone } from "@material-ui/icons";
 import React, { useReducer } from "react";
 
 const CartContext = React.createContext();
@@ -10,6 +11,8 @@ const CartReducer = (state, action) => {
         ...state,
         products: [...state.products, action.payload],
       };
+    case "set_total_price":
+      return { ...state, totalPrice: action.payload };
   }
 };
 
@@ -31,6 +34,7 @@ function getProductIndex(list, product) {
 export const CartProvider = ({ children }) => {
   const [cartState, d] = useReducer(CartReducer, {
     products: [],
+    totalPrice: 0,
   });
 
   function dispatch(type, data) {
@@ -39,9 +43,11 @@ export const CartProvider = ({ children }) => {
   const setCartProducts = (data) => {
     dispatch("set_cart_products", data);
   };
+
   const addProduct = (data) => {
     if (cartState.products.length === 0) {
       dispatch("add_product", { ...data, ammount: 1 });
+      setTotalPrice();
       return;
     }
     if (isProductAlreadyInCart(cartState.products, data)) {
@@ -53,9 +59,21 @@ export const CartProvider = ({ children }) => {
       });
 
       setCartProducts(list);
+      setTotalPrice();
     } else if (!isProductAlreadyInCart(cartState.products, data)) {
       dispatch("add_product", { ...data, ammount: 1 });
+      setTotalPrice();
     }
+  };
+
+  const setTotalPrice = () => {
+    let total = 0;
+    for (let index = 0; index < cartState.products.length; index++) {
+      total =
+        total +
+        cartState.products[index].price * cartState.products[index].ammount;
+    }
+    dispatch("set_total_price", total);
   };
 
   return (

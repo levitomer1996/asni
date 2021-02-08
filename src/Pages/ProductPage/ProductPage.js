@@ -10,25 +10,29 @@ const ProductPage = () => {
     getAllProducts();
   }, []);
   return (
-    <div className={classes.container}>
-      <div className={classes.root} spacing={3}>
-        {products.map((prod) => {
-          return (
-            <div style={{ marginBottom: 10 }}>
-              <ProductCard
-                title={prod.title}
-                key={prod.id}
-                description={prod.description}
-                img_url={prod.img_url}
-                price={prod.price}
-                share_link={`/productdetails/${prod.id}`}
-                id={prod.id}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <Grid
+      container
+      direction="row-reverse"
+      justify="center"
+      alignItems="center"
+      spacing={3}
+    >
+      {products.map((prod) => {
+        return (
+          <Grid item>
+            <ProductCard
+              title={prod.title}
+              key={prod.id}
+              description={prod.description}
+              img_url={prod.img_url}
+              price={prod.price}
+              share_link={`/productdetails/${prod.id}`}
+              id={prod.id}
+            />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 };
 

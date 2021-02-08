@@ -69,6 +69,8 @@ const PaymentReducer = (state, action) => {
         ...state,
         paymentForm: { ...state.paymentForm, cvv: action.payload },
       };
+    case "set_paypal_complete":
+      return { ...state, isPaypalTransectionComplete: action.payload };
     default:
       break;
   }
@@ -79,6 +81,10 @@ export const PaymentProvider = ({ children }) => {
     isButtonDisabled: false,
     adressForm: {},
     paymentForm: {},
+    isPaypalTransectionComplete: {
+      isComplete: false,
+      PaypalTransection: null,
+    },
   });
   const d = (type, payload) => {
     dispatch({ type, payload });
@@ -126,6 +132,10 @@ export const PaymentProvider = ({ children }) => {
   const setType = (data) => {
     d("set_type", data);
   };
+  const setPaypalTransectionCompleted = (data) => {
+    d("set_paypal_complete", data);
+  };
+
   return (
     <PaymentContext.Provider
       value={{
@@ -134,6 +144,7 @@ export const PaymentProvider = ({ children }) => {
         setLastName,
         setStreet,
         setFloor,
+        setPaypalTransectionCompleted,
         setHouseNumber,
         setAppartment,
         setIsButtonDisabled,

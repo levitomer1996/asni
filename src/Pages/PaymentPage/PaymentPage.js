@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -14,7 +14,9 @@ import AddressForm from "./Comps/AdressForm";
 import PaymentForm from "./Comps/PaymentForm";
 import Review from "./Comps/Review";
 import PaymentContext from "../../context/PaymentContext";
-
+import CartContext from "../../context/CartContext";
+import ReactPaypal from "../../Components/ReactPaypal/ReactPaypal";
+import { Redirect } from "react-router";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -82,10 +84,26 @@ function getStepContent(step) {
 }
 
 export default function PaymentPage() {
+  const { cartState } = useContext(CartContext);
   const { paymentState } = useContext(PaymentContext);
+  const [paypalDescription, setPaypalDescription] = useState([]);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
+  useEffect(() => {
+    let newList = [];
+    for (let i = 0; i < cartState.products.length; i++) {
+      newList.push({
+        name: cartState.products[i].title,
+        price: cartState.products[i].price,
+        quantity: cartState.products[i].ammount,
+        currency: "ILS",
+      });
+      setPaypalDescription(newList);
+    }
+
+    console.log(paypalDescription);
+  }, []);
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -96,6 +114,9 @@ export default function PaymentPage() {
 
   return (
     <div dir="rtl">
+      {paymentState.isPaypalTransectionComplete.isComplete ? (
+        <Redirect to="/complete" />
+      ) : null}
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
@@ -129,8 +150,13 @@ export default function PaymentPage() {
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      חזור
                     </Button>
                   )}
                   <Button
@@ -138,10 +164,17 @@ export default function PaymentPage() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
-                    disabled={paymentState.isButtonDisabled}
+                    disabled={false}
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "המשך"}
+                    {activeStep === steps.length - 1 ? "בצע הזמנה" : "המשך"}
                   </Button>
+                </div>
+                <Typography>שלם ב Paypal</Typography>
+                <div style={{ width: "50%" }}>
+                  <ReactPaypal
+                    totalPrice={cartState.totalPrice}
+                    description={paypalDescription}
+                  />
                 </div>
               </React.Fragment>
             )}

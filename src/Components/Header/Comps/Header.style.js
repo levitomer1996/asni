@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "80808008",
     padding: 20,
     display: "grid",
-    gridTemplateColumns: "80% 20%",
+    gridTemplateColumns: "60% 40%",
     borderBottom: "1.5px solid #00000012",
     [theme.breakpoints.up("lg")]: {
       display: "none",
@@ -58,5 +58,9 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  accountCircle: {
+    color: "rgb(137, 6, 137)",
+    fontSize: "2.5rem",
   },
 }));

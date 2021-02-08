@@ -8,7 +8,7 @@ export default (card, name) => {
     validCvv,
     isExpired,
   } = CreditCard.validate(card);
-  console.log(CreditCard.validate(card));
+
   if (
     name &&
     validCardNumber &&

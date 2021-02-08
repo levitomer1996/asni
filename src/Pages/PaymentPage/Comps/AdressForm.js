@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-
+import validateAdress from "./validateAdress";
 import BootStrapInput from "../../../Components/BootstrapInput/BootstrapInput";
 import PaymentContext from "../../../context/PaymentContext";
 
@@ -24,35 +24,23 @@ export default function AddressForm() {
     appartment,
     floor,
   } = paymentState.adressForm;
-  // useEffect(() => {
-  //   if (!firstName) {
-  //     setIsButtonDisabled(true);
-  //     return;
-  //   }
-  //   if (!lastName) {
-  //     setIsButtonDisabled(true);
-  //     return;
-  //   }
-  //   if (!houseNumber) {
-  //     setIsButtonDisabled(true);
-
-  //     return;
-  //   }
-  //   if (!street) {
-  //     setIsButtonDisabled(true);
-  //     return;
-  //   }
-  //   if (!appartment) {
-  //     setIsButtonDisabled(true);
-  //     return;
-  //   }
-  //   if (!floor) {
-  //     setIsButtonDisabled(true);
-  //     return;
-  //   }
-
-  //   setIsButtonDisabled(false);
-  // }, [firstName, lastName, houseNumber, street, appartment]);
+  useEffect(() => {
+    if (
+      !validateAdress(
+        firstName,
+        lastName,
+        houseNumber,
+        street,
+        appartment,
+        floor
+      )
+    ) {
+      setIsButtonDisabled(true);
+      return;
+    }
+    console.log("Fine");
+    setIsButtonDisabled(false);
+  }, [firstName, lastName, houseNumber, street, appartment]);
 
   return (
     <React.Fragment>

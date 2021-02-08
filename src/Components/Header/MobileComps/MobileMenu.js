@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { IconButton } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { useStyles } from "./Header.style";
+import { Link, Redirect } from "react-router-dom";
+import { useStyles } from "../Comps/Header.style";
+import AuthContext from "../../../context/AuthContext";
 
 export default function MobileMenu() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { Signout } = useContext(AuthContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,13 +33,26 @@ export default function MobileMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link to="products" style={{ textDecoration: "none", color: "black" }}>
-          <MenuItem onClick={handleClose}>Products</MenuItem>
+        <Link to="/products" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            מוצרים
+          </MenuItem>
         </Link>
-        <Link to="special" style={{ textDecoration: "none", color: "black" }}>
-          <MenuItem onClick={handleClose}>Specials</MenuItem>
+        <Link to="/specials" style={{ textDecoration: "none", color: "black" }}>
+          <MenuItem onClick={handleClose}>מיוחדים</MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            Signout();
+            handleClose();
+          }}
+        >
+          התנתק
+        </MenuItem>
       </Menu>
     </div>
   );

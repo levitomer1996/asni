@@ -3,6 +3,7 @@ import ParallexImage from "./Comps/ParallexImage";
 import Swiper from "../../Components/Swiper/Swiper";
 import useGetSpecials from "../../hooks/useGetSpecials";
 import { useStyles } from "./Comps/IndexPage.style";
+
 function IndexPage() {
   const classes = useStyles();
   const [getSpecials, specials, spinner] = useGetSpecials();

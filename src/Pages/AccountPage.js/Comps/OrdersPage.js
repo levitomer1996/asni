@@ -6,7 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 import "moment/locale/he";
@@ -72,9 +72,6 @@ const list = [
 export default function OrdersPage() {
   const classes = useStyles();
 
-  useEffect(() => {
-    moment.locale("fr");
-  });
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="simple table">

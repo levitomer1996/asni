@@ -8,7 +8,10 @@ import * as CreditCard from "credit-card";
 import PaymentContext from "../../../context/PaymentContext";
 import BootstrapSelectInput from "../../../Components/BootstrapInput/BootstrapSelectInput";
 import validateCard from "./validateCard";
+import ReactPaypal from "../../../Components/ReactPaypal/ReactPaypal";
+import CartContext from "../../../context/CartContext";
 export default function PaymentForm() {
+  const { cartState } = useContext(CartContext);
   const {
     paymentState,
     setNameOnCard,
@@ -52,6 +55,7 @@ export default function PaymentForm() {
             required={true}
             type="text"
             onChangeFunction={setNameOnCard}
+            value={nameOnCard}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -60,6 +64,7 @@ export default function PaymentForm() {
             required={true}
             type="text"
             onChangeFunction={setCardNumber}
+            value={cardNumber}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -67,6 +72,7 @@ export default function PaymentForm() {
             options={["VISA", "MASTERCARD"]}
             label="סוג כרטיס"
             onChangeFunction={setType}
+            value={type}
           />
         </Grid>
         <Grid item xs={12} md={2}>
@@ -75,6 +81,7 @@ export default function PaymentForm() {
             required={true}
             type="text"
             onChangeFunction={setExpMonth}
+            value={expiryMonth}
           />
         </Grid>
         <Grid item xs={12} md={2}>
@@ -83,6 +90,7 @@ export default function PaymentForm() {
             required={true}
             type="text"
             onChangeFunction={setExpYear}
+            value={expiryYear}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -91,29 +99,11 @@ export default function PaymentForm() {
             required={true}
             onChangeFunction={setCvv}
             type="text"
+            value={cvv}
           />
         </Grid>
         <Grid item>
           <Typography>שלמו עם Paypal</Typography>
-        </Grid>
-        <Grid item>
-          <PayPalButton
-            amount="0.01"
-            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-            onSuccess={(details, data) => {
-              alert(
-                "Transaction completed by " + details.payer.name.given_name
-              );
-
-              // OPTIONAL: Call your server to save the transaction
-              return fetch("/paypal-transaction-complete", {
-                method: "post",
-                body: JSON.stringify({
-                  orderID: data.orderID,
-                }),
-              });
-            }}
-          />
         </Grid>
       </Grid>
     </div>
