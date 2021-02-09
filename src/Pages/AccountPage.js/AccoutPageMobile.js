@@ -12,6 +12,7 @@ import OrderPage from "./MobileComps/OrderPage";
 import HistoryIcon from "@material-ui/icons/History";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import MailIcon from "@material-ui/icons/Mail";
+import GoodiesPage from "./MobileComps/GoodiesPage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -99,7 +100,7 @@ export default function AccountPageMobile() {
           <OrderPage />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+          <GoodiesPage />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three

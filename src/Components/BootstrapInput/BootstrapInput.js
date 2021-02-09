@@ -96,18 +96,19 @@ export default function BootStrapInput({
   autoComplete,
   required,
   value,
+  direction,
 }) {
   const classes = useStyles();
   if (textArea) {
     return (
       <FormControl>
-        <InputLabel
-          shrink
-          htmlFor="bootstrap-input"
-          style={{ textAlign: "right" }}
-        >
-          {label}
-        </InputLabel>
+        <label>
+          <Typography
+            style={{ color: "rgba(0, 0, 0, 0.54)", fontFamily: "revert" }}
+          >
+            {label}
+          </Typography>
+        </label>
         <textarea
           className={classes.textArea}
           row={rows}
@@ -122,7 +123,7 @@ export default function BootStrapInput({
     return (
       <ThemeProvider theme={theme}>
         {" "}
-        <FormControl dir="rtl">
+        <FormControl dir={direction ? direction : "rtl"}>
           <label>
             <Typography
               style={{ color: "rgba(0, 0, 0, 0.54)", fontFamily: "revert" }}

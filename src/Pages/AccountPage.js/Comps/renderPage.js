@@ -1,10 +1,12 @@
+import GoodiesPage from "./GoodiesPage";
 import OrdersPage from "./OrdersPage";
 
 export default (page) => {
   switch (page) {
     case "orders":
       return <OrdersPage />;
-      break;
+    case "goodies":
+      return <GoodiesPage />;
 
     default:
       break;

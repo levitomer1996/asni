@@ -3,7 +3,7 @@ import { Typography } from "@material-ui/core";
 import { useStyles } from "./IndexPage.style";
 function ParallexImage() {
   const styleProps = {
-    img_url: "https://i.ibb.co/yyByKTG/IMG-20210128-162604-01.jpg",
+    img_url: "https://i.ibb.co/D5KG2BW/pexels-daria-shevtsova-1054974.jpg",
   };
   const classes = useStyles(styleProps);
   return (

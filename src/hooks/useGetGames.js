@@ -3,7 +3,7 @@ import asni_sever from "../api/asni_server";
 export default () => {
   const [games, setGames] = useState([]);
   const [loader, setLoader] = useState(false);
-  const getGames = async (game_id) => {
+  const getGame = async (game_id) => {
     try {
       setLoader(true);
       const res = await asni_sever.get(`myapi/${game_id}`);
@@ -13,5 +13,5 @@ export default () => {
       setLoader(false);
     }
   };
-  return [];
+  return [getGame, games, loader];
 };

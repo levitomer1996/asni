@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, IconButton } from "@material-ui/core";
 import { useStyles } from "./Comps/Header.style";
 import NavLink, { NavList } from "./Comps/Navlink";
 import { Link } from "react-router-dom";
@@ -23,9 +23,9 @@ function Header() {
               "
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <Typography variant="h6">
-                  {authState.user.FirstName + " " + authState.user.LastName}
-                </Typography>
+                <IconButton>
+                  <AccountCircleIcon className={classes.accountCircle} />
+                </IconButton>
               </Link>
             </div>
           ) : (

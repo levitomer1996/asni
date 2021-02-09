@@ -10,6 +10,7 @@ import useIsConnectedResolver from "../hooks/useIsConnectedResolver";
 import AccountPage from "./AccountPage.js/AccountPage";
 import PaymentPage from "./PaymentPage/PaymentPage";
 import { PaymentProvider } from "../context/PaymentContext";
+import EditProductPage from "./EditProductPage/EditProductPage";
 
 function Main() {
   const [isConnectedResolver] = useIsConnectedResolver();
@@ -36,9 +37,10 @@ function Main() {
       <Route path="/productdetails/:id">
         <ProductDetailsPage />
       </Route>
-      <Route path="/asminadmin">
+      <Route path="/asminadmin/:page">
         <AdminPage />
       </Route>
+
       <Route path="/accountpage/:section">
         <AccountPage />
       </Route>

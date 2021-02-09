@@ -3,12 +3,22 @@ import { Grid } from "@material-ui/core";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import useGetAllProducts from "../../hooks/useGetAllProducts";
 import { useStyles } from "./Comps/ProductPage.style";
+import Spinner from "../../Components/Spinner/Spinner";
 const ProductPage = () => {
   const classes = useStyles();
   const [getAllProducts, products, spinner] = useGetAllProducts();
   useEffect(() => {
     getAllProducts();
   }, []);
+  if (spinner) {
+    return (
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item>
+          <Spinner color={"rgb(137, 6, 137)"} width={"200px"} />
+        </Grid>
+      </Grid>
+    );
+  }
   return (
     <Grid
       container

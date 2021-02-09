@@ -8,7 +8,7 @@ import * as CreditCard from "credit-card";
 import PaymentContext from "../../../context/PaymentContext";
 import BootstrapSelectInput from "../../../Components/BootstrapInput/BootstrapSelectInput";
 import validateCard from "./validateCard";
-import ReactPaypal from "../../../Components/ReactPaypal/ReactPaypal";
+
 import CartContext from "../../../context/CartContext";
 export default function PaymentForm() {
   const { cartState } = useContext(CartContext);

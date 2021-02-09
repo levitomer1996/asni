@@ -24,4 +24,17 @@ export const useStyles = makeStyles((theme) => ({
   order_item_mobile: {
     borderBottom: "0.3px solid #0000002e",
   },
+  coupon_card_root: {
+    width: 300,
+    minWidth: 300,
+    padding: 20,
+  },
+  goodies_container: {
+    marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  coupon_card_root_mobile: { width: "100%" },
 }));

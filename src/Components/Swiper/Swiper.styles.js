@@ -4,6 +4,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textAlign: "right",
     marginTop: 20,
+    width: "80%",
   },
   root: {
     [theme.breakpoints.down("sm")]: {

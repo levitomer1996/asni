@@ -17,6 +17,7 @@ import PaymentContext from "../../context/PaymentContext";
 import CartContext from "../../context/CartContext";
 import ReactPaypal from "../../Components/ReactPaypal/ReactPaypal";
 import { Redirect } from "react-router";
+import AuthContext from "../../context/AuthContext";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -86,6 +87,7 @@ function getStepContent(step) {
 export default function PaymentPage() {
   const { cartState } = useContext(CartContext);
   const { paymentState } = useContext(PaymentContext);
+  const { authState } = useContext(AuthContext);
   const [paypalDescription, setPaypalDescription] = useState([]);
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -111,7 +113,9 @@ export default function PaymentPage() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
+  if (!authState.isLogged) {
+    return <Redirect to="/signin" />;
+  }
   return (
     <div dir="rtl">
       {paymentState.isPaypalTransectionComplete.isComplete ? (
