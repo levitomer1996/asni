@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import ModalContext from "../../../context/ModalContext";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import AdminPageContext from "../../../context/AdminPageContext";
 
 const useStyles = makeStyles({
   table: {
@@ -30,8 +30,8 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function StockTable() {
-  const { setIsModalOpen } = useContext(ModalContext);
+export default function StockTable({ products }) {
+  const { setProductPageState, setPage } = useContext(AdminPageContext);
   const classes = useStyles();
 
   return (
@@ -46,19 +46,24 @@ export default function StockTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {products.map((row) => (
+            <TableRow key={row.title}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.title}
               </TableCell>
-              <TableCell align="right">{row.calories}₪</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.price}₪</TableCell>
+              <TableCell align="right">{row.quantity}</TableCell>
               <TableCell align="right">
-                <Link to="editproduct">
-                  <Button variant="contained" color="secondary">
-                    Edit
-                  </Button>
-                </Link>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    setProductPageState(row);
+                    setPage("editproduct");
+                  }}
+                >
+                  Edit
+                </Button>
               </TableCell>
             </TableRow>
           ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import EditProductPage from "../../EditProductPage/EditProductPage";
+import EditProductPage from "./EditProductPage";
 import StockManagementPage from "./StockManagementPage";
 
 export default function RenderPage({ page }) {

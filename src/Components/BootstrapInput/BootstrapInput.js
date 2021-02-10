@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import InputBase from "@material-ui/core/InputBase";
-import InputLabel from "@material-ui/core/InputLabel";
-
+import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import {
   withStyles,
@@ -10,7 +10,7 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { IconButton, Typography } from "@material-ui/core";
 const theme = createMuiTheme({
   direction: "rtl", // Both here and <body dir="rtl">
 });
@@ -97,6 +97,8 @@ export default function BootStrapInput({
   required,
   value,
   direction,
+  InputAdor,
+  onClickAdor,
 }) {
   const classes = useStyles();
   if (textArea) {
@@ -116,6 +118,7 @@ export default function BootStrapInput({
           onChange={(e) => {
             onChangeFunction(e.target.value);
           }}
+          value={value}
         ></textarea>
       </FormControl>
     );
@@ -147,6 +150,15 @@ export default function BootStrapInput({
             rows={rows ? rows : 1}
             required={required ? true : false}
             value={value}
+            endAdornment={
+              InputAdor ? (
+                <InputAdornment position={InputAdor}>
+                  <IconButton onClick={onClickAdor}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ) : null
+            }
           />
         </FormControl>
       </ThemeProvider>
