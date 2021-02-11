@@ -5,6 +5,7 @@ import { useStyles } from "./Comps/ProductDetailsPage.style";
 import useGetProduct from "../../hooks/useGetProduct";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CartContext from "../../context/CartContext";
+import { Helmet } from "react-helmet";
 function ProductDetailsPage() {
   const classes = useStyles();
   const { addProduct } = useContext(CartContext);
@@ -35,8 +36,12 @@ function ProductDetailsPage() {
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={`צפה במוצר - ${title}`} />
+      </Helmet>
       <div className={classes.left_container}>
-        <img src={product.img_url} className={classes.img} />
+        <img src={img_url} className={classes.img} />
       </div>
       <div className={classes.right_container}>
         <div className={classes.item}>
