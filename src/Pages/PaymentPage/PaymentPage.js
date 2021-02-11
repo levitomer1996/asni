@@ -88,24 +88,10 @@ export default function PaymentPage() {
   const { cartState } = useContext(CartContext);
   const { paymentState } = useContext(PaymentContext);
   const { authState } = useContext(AuthContext);
-  const [paypalDescription, setPaypalDescription] = useState([]);
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  useEffect(() => {
-    let newList = [];
-    for (let i = 0; i < cartState.products.length; i++) {
-      newList.push({
-        name: cartState.products[i].title,
-        price: cartState.products[i].price,
-        quantity: cartState.products[i].ammount,
-        currency: "ILS",
-      });
-      setPaypalDescription(newList);
-    }
-
-    console.log(paypalDescription);
-  }, []);
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -175,10 +161,7 @@ export default function PaymentPage() {
                 </div>
                 <Typography>שלם ב Paypal</Typography>
                 <div style={{ width: "50%" }}>
-                  <ReactPaypal
-                    totalPrice={cartState.totalPrice}
-                    description={paypalDescription}
-                  />
+                  <ReactPaypal totalPrice={cartState.totalPrice} />
                 </div>
               </React.Fragment>
             )}

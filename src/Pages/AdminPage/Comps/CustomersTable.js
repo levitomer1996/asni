@@ -9,8 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
-import AdminPageContext from "../../../context/AdminPageContext";
-
 const useStyles = makeStyles({
   table: {
     minWidth: 600,
@@ -18,8 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StockTable({ products }) {
-  const { setProductPageState, setPage } = useContext(AdminPageContext);
+export default function CustomersTable({ customers }) {
   const classes = useStyles();
 
   return (
@@ -27,30 +24,24 @@ export default function StockTable({ products }) {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Edit</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">Orders</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
-            <TableRow key={row.title}>
+          {customers.map((row) => (
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.title}
+                {row.email}
               </TableCell>
-              <TableCell align="right">{row.price}₪</TableCell>
-              <TableCell align="right">{row.quantity}</TableCell>
               <TableCell align="right">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    setProductPageState(row);
-                    setPage("editproduct");
-                  }}
-                >
-                  Edit
+                {row.firstName + " " + row.lastName}
+              </TableCell>
+              <TableCell align="right">
+                {" "}
+                <Button variant="contained" color="secondary">
+                  Watch Orders
                 </Button>
               </TableCell>
             </TableRow>

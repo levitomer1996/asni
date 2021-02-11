@@ -39,6 +39,10 @@ const list = [
     title: "בוא תרגיע רגע",
     img_url: "https://i.ibb.co/VCqtddt/pexels-pixabay-55825.jpg",
   },
+  {
+    title: "ישישבות בים",
+    img_url: "https://i.ibb.co/6mBkf3N/pexels-photo-4609731.jpg",
+  },
 ];
 
 function PhotosSwiper() {
@@ -47,7 +51,11 @@ function PhotosSwiper() {
   return (
     <>
       <div className={classes.photos_container}>
-        <Swiper spaceBetween={20} slidesPerView={3}>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3}
+          scrollbar={{ draggable: true }}
+        >
           {list.map((photo) => {
             return (
               <SwiperSlide>

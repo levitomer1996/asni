@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import PaymentContext from "../../context/PaymentContext";
 
-export default function ReactPaypal({ totalPrice, description }) {
+export default function ReactPaypal({ totalPrice }) {
   const paypal = useRef();
   const { setPaypalTransectionCompleted } = useContext(PaymentContext);
   useEffect(() => {
@@ -12,11 +12,10 @@ export default function ReactPaypal({ totalPrice, description }) {
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "חבילות אסני",
-
+                description: "Some product",
                 amount: {
                   currency_code: "ILS",
-                  value: 9,
+                  value: 20,
                 },
               },
             ],

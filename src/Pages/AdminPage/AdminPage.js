@@ -9,6 +9,7 @@ const links = [
   { title: "Orders", page: "orders" },
   { title: "Customers", page: "customers" },
   { title: "Stock-Management,", page: "stockmanagement" },
+  { title: "Mail", page: "mail" },
 ];
 const AdminPage = () => {
   const { adminpageState, setPage } = useContext(AdminPageContext);

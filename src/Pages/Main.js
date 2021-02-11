@@ -11,6 +11,7 @@ import AccountPage from "./AccountPage.js/AccountPage";
 import PaymentPage from "./PaymentPage/PaymentPage";
 import { PaymentProvider } from "../context/PaymentContext";
 import { AdminPageProvider } from "../context/AdminPageContext";
+import ContactusPage from "./ContactusPage/ContactusPage";
 
 function Main() {
   const [isConnectedResolver] = useIsConnectedResolver();
@@ -21,6 +22,9 @@ function Main() {
     <Switch>
       <Route exact path="/">
         <IndexPage />
+      </Route>{" "}
+      <Route exact path="/contact">
+        <ContactusPage />
       </Route>
       <Route path="/signup">
         <SignupPage />
@@ -37,12 +41,11 @@ function Main() {
       <Route path="/productdetails/:id">
         <ProductDetailsPage />
       </Route>
-      <Route path="/asminadmin">
+      <Route path="/asniadmin">
         <AdminPageProvider>
           <AdminPage />
         </AdminPageProvider>
       </Route>
-
       <Route path="/accountpage/:section">
         <AccountPage />
       </Route>

@@ -3,30 +3,35 @@ import useGetAllProducts from "../../../hooks/useGetAllProducts";
 import StockTable from "./StockTable";
 import BootstrapInput from "../../../Components/BootstrapInput/BootstrapInput";
 import Spinner from "../../../Components/Spinner/Spinner";
+import useGetProductByTitle from "../../../hooks/useGetProductByTitle";
 function StockManagementPage() {
   const [getAllProducts, arrivedProducts, spinner] = useGetAllProducts();
   const [search, setSearch] = useState("");
   const [prodList, setProdList] = useState([]);
+
   useEffect(() => {
     getAllProducts();
   }, []);
+
   useEffect(() => {
     setProdList(arrivedProducts);
   }, [arrivedProducts]);
 
+  const [searchProduct, searchedProducts] = useGetProductByTitle();
+  useEffect(() => {
+    if (searchedProducts.length > 0) {
+      setProdList(searchedProducts);
+      console.log(prodList);
+    }
+  }, [searchedProducts]);
   const handleSearch = () => {
-    const found = prodList.find((p) => p.title === search);
-    if (found) {
-      setProdList([prodList.find((p) => p.title === search)]);
-    }
-    if (search === "") {
-      getAllProducts();
-    }
+    searchProduct(prodList, search);
   };
 
   if (spinner) {
     return <Spinner width={200} height={200} />;
   }
+
   return (
     <div>
       <BootstrapInput

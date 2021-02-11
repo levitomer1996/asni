@@ -103,24 +103,26 @@ export default function BootStrapInput({
   const classes = useStyles();
   if (textArea) {
     return (
-      <FormControl>
-        <label>
-          <Typography
-            style={{ color: "rgba(0, 0, 0, 0.54)", fontFamily: "revert" }}
-          >
-            {label}
-          </Typography>
-        </label>
-        <textarea
-          className={classes.textArea}
-          row={rows}
-          placeholder={label}
-          onChange={(e) => {
-            onChangeFunction(e.target.value);
-          }}
-          value={value}
-        ></textarea>
-      </FormControl>
+      <ThemeProvider theme={theme}>
+        <FormControl dir={direction ? direction : "rtl"}>
+          <label>
+            <Typography
+              style={{ color: "rgba(0, 0, 0, 0.54)", fontFamily: "revert" }}
+            >
+              {label}
+            </Typography>
+          </label>
+          <textarea
+            className={classes.textArea}
+            rows={rows.toString()}
+            placeholder={label}
+            onChange={(e) => {
+              onChangeFunction(e.target.value);
+            }}
+            value={value}
+          ></textarea>
+        </FormControl>
+      </ThemeProvider>
     );
   } else {
     return (

@@ -24,21 +24,29 @@ const EditProductPage = () => {
   }, [productPageState]);
 
   const handleSubmit = async () => {
-    const update = { title, description, price, quantity, img_url };
     try {
       setSpinner(true);
       const res = await asni_server.post(
         "/updateproduct",
-        { update },
+        {
+          title,
+          description,
+          price,
+          quantity,
+          img_url,
+          id: productPageState.id,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("ut")}`,
           },
         }
       );
+      console.log(res.data);
       setSpinner(false);
       setProductUpdated(true);
     } catch (error) {
+      console.log(error);
       setSpinner(false);
     }
   };
