@@ -7,6 +7,9 @@ export default () => {
     if (localStorage.getItem("ut")) {
       try {
         const decode = await jwt.decode(localStorage.getItem("ut"));
+        if (!decode) {
+          Signout();
+        }
         Signin(decode);
       } catch (error) {
         Signout();

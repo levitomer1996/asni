@@ -26,14 +26,13 @@ export default ({ list, spinner }) => {
             // s = item
             list.map((s) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={s.id}>
                   <ProductCard
                     title={s.title}
                     price={s.price}
                     img_url={s.img_url}
                     description={s.description}
                     id={s.id}
-                    key={s.id}
                     spinner={spinner}
                     share_link={`/productdetails/${s.id}`}
                   />

@@ -6,7 +6,12 @@ export default () => {
   const getAllProducts = async () => {
     try {
       setSpinner(true);
-      const res = await asni_server.get("/allproducts", {});
+      const res = await asni_server.get("/allproducts", {
+        headers: {
+          //IsTokenExist = token.
+          Authorization: `Bearer ${localStorage.getItem("ut")}`,
+        },
+      });
       setSpinner(false);
       console.log(res.data);
       setProducts(res.data);

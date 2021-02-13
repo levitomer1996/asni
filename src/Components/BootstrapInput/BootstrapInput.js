@@ -119,6 +119,7 @@ export default function BootStrapInput({
             onChange={(e) => {
               onChangeFunction(e.target.value);
             }}
+            style={{ width: width ? width : null }}
             value={value}
           ></textarea>
         </FormControl>

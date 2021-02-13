@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,7 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import moment from "moment";
 import "moment/locale/he";
+import ModalContext from "../../../context/ModalContext";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
+import asni_server from "../../../api/asni_server";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -18,7 +20,23 @@ const useStyles = makeStyles({
 });
 export default function MailTable({ mailList }) {
   const classes = useStyles();
+  const { setIsModalOpen } = useContext(ModalContext);
+  const handleRead = async (id, params) => {
+    try {
+      setIsModalOpen("contactus", params);
 
+      const res = await asni_server.post(
+        "/readmessage",
+        { id },
+        {
+          headers: {
+            //IsTokenExist = token.
+            Authorization: `Bearer ${localStorage.getItem("ut")}`,
+          },
+        }
+      );
+    } catch (error) {}
+  };
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -31,24 +49,24 @@ export default function MailTable({ mailList }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {mailList.map(({ name, email, message, isReaded, time_posted }) => (
-            <TableRow key={name}>
+          {mailList.map(({ name, email, message, isRead, dateCreated, id }) => (
+            <TableRow key={id}>
               <TableCell
                 component="th"
                 scope="row"
                 style={{
-                  fontWeight: isReaded ? null : "bold",
-                  color: isReaded ? null : "red",
+                  fontWeight: isRead ? null : "bold",
+                  color: isRead ? null : "red",
                 }}
               >
-                {isReaded ? null : <FiberNewIcon />}
+                {isRead ? null : <FiberNewIcon />}
                 {name}
               </TableCell>
               <TableCell
                 align="left"
                 style={{
-                  fontWeight: isReaded ? null : "bold",
-                  color: isReaded ? null : "red",
+                  fontWeight: isRead ? null : "bold",
+                  color: isRead ? null : "red",
                 }}
               >
                 {email}
@@ -56,23 +74,33 @@ export default function MailTable({ mailList }) {
               <TableCell
                 align="left"
                 style={{
-                  fontWeight: isReaded ? null : "bold",
-                  color: isReaded ? null : "red",
+                  fontWeight: isRead ? null : "bold",
+                  color: isRead ? null : "red",
                 }}
               >
-                {moment(time_posted).format("LLLL")}
+                {moment(dateCreated).format("LLLL")}
               </TableCell>
               <TableCell
                 align="left"
                 style={{
-                  fontWeight: isReaded ? null : "bold",
-                  color: isReaded ? null : "red",
+                  fontWeight: isRead ? null : "bold",
+                  color: isRead ? null : "red",
                 }}
               >
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ backgroundColor: isReaded ? "green" : "red" }}
+                  style={{ backgroundColor: isRead ? "green" : "red" }}
+                  onClick={() => {
+                    handleRead(id, {
+                      name,
+                      email,
+                      message,
+                      isRead,
+                      dateCreated,
+                      id,
+                    });
+                  }}
                 >
                   Read Message
                 </Button>

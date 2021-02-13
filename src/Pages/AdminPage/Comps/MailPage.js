@@ -1,27 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useGetContactusMessages from "../../../hooks/useGetContactusMessages";
 import MailTable from "./MailTable";
 
 //Page
 function MailPage() {
-  const mailList = [
-    {
-      name: "Tomer",
-      email: "levitomer1996@gmail.com",
-      message: "Fuck you fuck you",
-      time_posted: 1613055527265,
-      isReaded: true,
-    },
-    {
-      name: "Tomer",
-      email: "levitomer1996@gmail.com",
-      message: "Fuck you fuck you",
-      time_posted: 1613055527265,
-      isReaded: false,
-    },
-  ];
+  const [getMessages, messages, spinner] = useGetContactusMessages();
+  useEffect(() => getMessages(), []);
   return (
     <div>
-      <MailTable mailList={mailList} />
+      <MailTable mailList={messages} />
     </div>
   );
 }

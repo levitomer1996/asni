@@ -12,8 +12,13 @@ function ContactusPage() {
   const [spinner, setSpinner] = useState(false);
   const handleSumbit = async () => {
     try {
+      console.log({
+        name,
+        email,
+        message,
+      });
       setSpinner(true);
-      const res = await asni_server.post("/newcontactusmessage", {
+      const res = await asni_server.post("/sendcontactmessage", {
         name,
         email,
         message,
@@ -27,7 +32,12 @@ function ContactusPage() {
 
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSumbit();
+        }}
+      >
         <Grid
           container
           direction="column"
@@ -63,6 +73,7 @@ function ContactusPage() {
               textArea
               value={message}
               rows={10}
+              width={300}
             />
           </Grid>
           <Grid item>
@@ -70,6 +81,7 @@ function ContactusPage() {
               variant="contained"
               color="primary "
               style={{ backgroundColor: "rgb(137, 6, 137)", color: "white" }}
+              type="submit"
             >
               שלח
             </Button>

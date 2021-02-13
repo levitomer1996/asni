@@ -7,6 +7,7 @@ import asni_server from "../../api/asni_server";
 import { Link, Redirect } from "react-router-dom";
 import { Typography, CircularProgress } from "@material-ui/core";
 import useIsConnectedResolver from "../../hooks/useIsConnectedResolver";
+import Facebook from "../../Components/Facebooklogin/Facebook";
 const SigninPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -19,8 +20,9 @@ const SigninPage = () => {
     try {
       setError(false);
       setSpinner(true);
-      const res = await asni_server.post("/login", { email, password });
-      localStorage.setItem("ut", res.data);
+      const res = await asni_server.post("/authenticate", { email, password });
+      console.log(res.data);
+      localStorage.setItem("ut", res.data.token);
       isConnectedResolver();
       setSpinner(false);
       setRedirect(true);
@@ -85,6 +87,9 @@ const SigninPage = () => {
           <Link to="/signup" style={{ textDecoration: "none", color: "blue" }}>
             !אין לך עדיין משתמש אסני? הרשם עכשיו
           </Link>
+        </Grid>
+        <Grid item>
+          <Facebook />
         </Grid>
       </Grid>
     </form>

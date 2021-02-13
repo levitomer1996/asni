@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import asni_server from "../api/asni_server";
 
 export default () => {
-  const [product, setProduct] = useState({});
+  const [messages, setMessages] = useState([]);
   const [spinner, setSpinner] = useState(false);
-  const getProduct = async (id) => {
+  const getMessages = async () => {
     try {
       setSpinner(true);
-      const res = await asni_server.get(`getprodbyid/${id}`, {});
-
-      setProduct(res.data);
+      const res = await asni_server.get("/getallcontantus");
+      setMessages(res.data);
+      console.log(res.data);
       setSpinner(false);
     } catch (error) {
       setSpinner(false);
     }
   };
-  return [getProduct, product, spinner];
+  return [getMessages, messages, spinner];
 };
