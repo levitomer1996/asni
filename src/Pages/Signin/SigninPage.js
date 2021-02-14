@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import BootStrapInput from "../../Components/BootstrapInput/BootstrapInput";
 import { useStyles } from "../SignupPage/Comps/SignupPage.styles";
@@ -22,21 +22,31 @@ const SigninPage = () => {
   var facebook_provider = new firebase.auth.FacebookAuthProvider();
 
   function facebookSignInPopup(provider) {
-    // [START auth_facebook_signin_popup]
+    setSpinner(true);
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(async (result) => {
         /** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
-
         // The signed-in user info.
         var user = result.user;
-
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var accessToken = credential.accessToken;
-        console.log(result);
-        // ...
+
+        asni_server
+          .post("/facebooksignin", {
+            id: user.uid,
+            displayName: user.displayName,
+            orders: [],
+          })
+          .then((res) => {
+            setSpinner(false);
+            setRedirect(true);
+          })
+          .catch((er) => {
+            setSpinner(false);
+          });
       })
       .catch((error) => {
         // Handle Errors here.

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import useGetContactusMessages from "../../../hooks/useGetContactusMessages";
-import MailTable from "./MailTable";
+import useGetContactusMessages from "../../../../hooks/useGetContactusMessages";
+import MailTable from "./Comps/MailTable";
 
 //Page
 function MailPage() {

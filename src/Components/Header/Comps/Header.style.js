@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: 10,
     paddingRight: 50,
   },
-  icon: { fontSize: "3rem", color: "rgb(137, 6, 137)" },
+  icon: { color: "rgb(137, 6, 137)", fontSize: "2.5rem" },
   inner_link: {
     "&:hover": {
       borderBottom: "2px solid purple",
@@ -39,6 +39,7 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    fontSize: "2.5rem",
   },
   mobile_root: {
     backgroundColor: "80808008",

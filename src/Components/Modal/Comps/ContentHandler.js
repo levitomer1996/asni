@@ -3,6 +3,7 @@ import CartModal from "./CartModal";
 import ContactusMessageModal from "./ContactusMessageModal";
 import CouponModal from "./CouponModal";
 import ShareModal from "./ShareModal";
+import SendMailModal from "./SendMailModal";
 
 export default function ContentHandler({ content, params }) {
   switch (content) {
@@ -14,6 +15,9 @@ export default function ContentHandler({ content, params }) {
       return <CouponModal code={params.code} />;
     case "contactus":
       return <ContactusMessageModal params={params} />;
+    case "sendmail":
+      return <SendMailModal params={params} />;
     default:
+      <div>deflt</div>;
   }
 }

@@ -11,7 +11,11 @@ const ModalReducer = (state, action) => {
         params: action.payload.params,
       };
     case "set_modal_content":
-      return { ...state, content: action.payload };
+      return {
+        ...state,
+        content: action.payload.content,
+        params: action.payload.params,
+      };
     default:
       break;
   }
@@ -36,8 +40,8 @@ export const ModalProvider = ({ children }) => {
         });
   };
 
-  const setModalContent = (data) => {
-    dispatch({ type: "set_modal_content", payload: data });
+  const setModalContent = (content, params) => {
+    dispatch({ type: "set_modal_content", payload: { content, params } });
   };
 
   return (

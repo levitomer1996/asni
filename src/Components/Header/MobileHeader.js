@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import CartIcon from "./Comps/CartIcon";
 import MobileMenu from "./MobileComps/MobileMenu";
 import AuthContext from "../../context/AuthContext";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import UserIcon from "./Comps/UserIcon";
 
 const MobileHeader = () => {
   const classes = useStyles();
@@ -18,13 +18,10 @@ const MobileHeader = () => {
       <div>
         <div className={classes.mobile_icons_container}>
           {authState.isLogged ? (
-            <div className={classes.accountCicrcle_container}>
-              <Link to="/accountpage/mobile">
-                <IconButton>
-                  <AccountCircleIcon className={classes.accountCircle} />
-                </IconButton>
-              </Link>
-            </div>
+            <UserIcon
+              type={authState.type}
+              params={{ photoURL: authState.user.photoURL }}
+            />
           ) : (
             <Link to="/signin">Signin</Link>
           )}

@@ -17,18 +17,25 @@ function UserIcon({ type, params, mobile }) {
               style={{ textDecoration: "none", color: "black" }}
             >
               <IconButton>
-                <AccountCircleIcon className={classes.accountCircle} />
+                <AccountCircleIcon
+                  className={classes.accountCircle}
+                  style={{ fontSize: "2.5rem" }}
+                />
               </IconButton>
             </Link>
           </div>
         );
       case "FACEBOOK":
         return (
-          <Avatar
-            alt="Remy Sharp"
-            src={params.photoURL}
-            className={classes.icon}
-          />
+          <div>
+            <Link to="/accountpage/orders">
+              <Avatar
+                alt="Remy Sharp"
+                src={params.photoURL}
+                className={classes.icon}
+              />
+            </Link>
+          </div>
         );
 
       default:

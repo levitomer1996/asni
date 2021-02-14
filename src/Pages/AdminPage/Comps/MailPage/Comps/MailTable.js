@@ -10,9 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import moment from "moment";
 import "moment/locale/he";
-import ModalContext from "../../../context/ModalContext";
+import ModalContext from "../../../../../context/ModalContext";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
-import asni_server from "../../../api/asni_server";
+import asni_server from "../../../../../api/asni_server";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,

@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { useStyles } from "./Comps/AdminPage.style";
-import { List, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
-import { Link, useParams } from "react-router-dom";
-import StockManagementPage from "./Comps/StockManagementPage";
+import { List, ListItem, ListItemText } from "@material-ui/core";
+
 import RenderPage from "./Comps/RenderPage";
 import AdminPageContext from "../../context/AdminPageContext";
 const links = [
+  { title: "Control Board", page: "controlboard" },
   { title: "Orders", page: "orders" },
   { title: "Customers", page: "customers" },
   { title: "Stock-Management", page: "stockmanagement" },
   { title: "Mail", page: "mail" },
+  { title: "Stats", page: "stats" },
 ];
 const AdminPage = () => {
   const { adminpageState, setPage } = useContext(AdminPageContext);

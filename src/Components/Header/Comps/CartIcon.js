@@ -12,7 +12,10 @@ function CartIcon() {
         setIsModalOpen("cart");
       }}
     >
-      <ShoppingCartIcon className={classes.icon} />
+      <ShoppingCartIcon
+        className={classes.icon}
+        style={{ fontSize: "2.5rem" }}
+      />
     </IconButton>
   );
 }
