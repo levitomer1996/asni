@@ -8,7 +8,7 @@ import AdminPageContext from "../../context/AdminPageContext";
 const links = [
   { title: "Orders", page: "orders" },
   { title: "Customers", page: "customers" },
-  { title: "Stock-Management,", page: "stockmanagement" },
+  { title: "Stock-Management", page: "stockmanagement" },
   { title: "Mail", page: "mail" },
 ];
 const AdminPage = () => {

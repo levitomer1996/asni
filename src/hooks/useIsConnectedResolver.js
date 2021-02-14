@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import * as jwt from "jsonwebtoken";
 export default () => {
-  const { authState, Signin, Signout } = useContext(AuthContext);
+  const { authState, Signin_Default, Signout } = useContext(AuthContext);
   const isConnectedResolver = async () => {
     if (localStorage.getItem("ut")) {
       try {
@@ -10,7 +10,7 @@ export default () => {
         if (!decode) {
           Signout();
         }
-        Signin(decode);
+        Signin_Default(decode);
       } catch (error) {
         Signout();
       }

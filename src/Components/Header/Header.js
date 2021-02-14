@@ -1,15 +1,27 @@
-import React, { useContext } from "react";
-import { Typography, IconButton } from "@material-ui/core";
+import React, { useContext, useEffect, useState } from "react";
 import { useStyles } from "./Comps/Header.style";
 import NavLink, { NavList } from "./Comps/Navlink";
 import { Link } from "react-router-dom";
 import CartIcon from "./Comps/CartIcon";
 import MobileHeader from "./MobileHeader";
 import AuthContext from "../../context/AuthContext";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-function Header() {
+
+import firebase from "firebase";
+import UserIcon from "./Comps/UserIcon";
+function Header({ isFireBaseInitialzied }) {
   const classes = useStyles();
-  const { authState } = useContext(AuthContext);
+  const { authState, Signin_Facebook } = useContext(AuthContext);
+  useEffect(() => {
+    if (isFireBaseInitialzied) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log(user);
+          Signin_Facebook(user);
+        } else {
+        }
+      });
+    }
+  }, [isFireBaseInitialzied]);
   return (
     <>
       <header className={classes.root}>
@@ -17,17 +29,10 @@ function Header() {
           <CartIcon />
 
           {authState.isLogged ? (
-            <div className={classes.accountCicrcle_container}>
-              <Link
-                to="/accountpage/orders
-              "
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <IconButton>
-                  <AccountCircleIcon className={classes.accountCircle} />
-                </IconButton>
-              </Link>
-            </div>
+            <UserIcon
+              type={authState.type}
+              params={{ photoURL: authState.user.photoURL }}
+            />
           ) : (
             <Link to="/signin">Signin</Link>
           )}

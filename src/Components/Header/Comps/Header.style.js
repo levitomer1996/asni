@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: 10,
     paddingRight: 50,
   },
-  icon: { fontSize: "2.5rem", color: "rgb(137, 6, 137)" },
+  icon: { fontSize: "3rem", color: "rgb(137, 6, 137)" },
   inner_link: {
     "&:hover": {
       borderBottom: "2px solid purple",
