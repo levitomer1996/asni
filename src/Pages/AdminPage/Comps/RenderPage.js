@@ -3,7 +3,7 @@ import CustomersPage from "./CustomersPage";
 import EditProductPage from "./EditProductPage";
 import MailPage from "./MailPage/MailPage";
 import StockManagementPage from "./StockManagementPage";
-import ControlBoardPage from "./ControlBoardPage";
+import ControlBoardPage from "./ControlBoardPage/ControlBoardPage";
 import StatsPage from "./StatsPage/StatsPage";
 export default function RenderPage({ page }) {
   switch (page) {

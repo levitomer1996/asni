@@ -1,12 +1,28 @@
-import React, { useState, useContext } from "react";
-import { Checkbox, colors, FormControlLabel } from "@material-ui/core";
-import AppContext from "../../../context/AppContext";
-
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Checkbox,
+  FormControlLabel,
+  Typography,
+  Fade,
+} from "@material-ui/core";
+import AppContext from "../../../../context/AppContext";
+import useGetControlPanel from "../../../../hooks/useGetControlPanel";
+import asni_server from "../../../../api/asni_server";
 const Switch = ({ label }) => {
   const { appState, setDeliveryAvailable } = useContext(AppContext);
   const { deliveryAvailable } = appState;
-  const handleChange = (e) => {
-    setDeliveryAvailable(e.target.checked);
+  const [error, setError] = useState(false);
+
+  const handleChange = async (e) => {
+    asni_server
+      .post("/updateisdeliveryavail", { isDeliveryAvail: e.target.checked })
+      .then((res) => {
+        setDeliveryAvailable(!e.target.checked);
+      })
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+      });
   };
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -31,6 +47,7 @@ const Switch = ({ label }) => {
       >
         {deliveryAvailable ? "ON" : "OFF"}
       </div>
+      {error ? <Typography style={{ color: "red" }}>Error</Typography> : null}
     </div>
   );
 };

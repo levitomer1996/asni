@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import PaymentContext from "../../context/PaymentContext";
-
-export default function ReactPaypal({ totalPrice }) {
+import CartContext from "../../context/CartContext";
+import asni_server from "../../api/asni_server";
+export default function ReactPaypal() {
   const paypal = useRef();
   const { setPaypalTransectionCompleted } = useContext(PaymentContext);
+  const { cartState } = useContext(CartContext);
+  const { products, totalPrice } = cartState;
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -15,7 +18,7 @@ export default function ReactPaypal({ totalPrice }) {
                 description: "Some product",
                 amount: {
                   currency_code: "ILS",
-                  value: 20,
+                  value: totalPrice,
                 },
               },
             ],
@@ -30,6 +33,18 @@ export default function ReactPaypal({ totalPrice }) {
             });
           }
           console.log(order);
+          const { payer, id, create_time, purchase_units } = order;
+          const { given_name, surname, payer_id } = payer;
+          console.log(payer, id, create_time, purchase_units);
+          asni_server.post("/addtransaction", {
+            id,
+            create_time,
+            totalPrice,
+            given_name,
+            surname,
+            payer_id,
+            products,
+          });
         },
         onError: (err) => {
           console.log(err);

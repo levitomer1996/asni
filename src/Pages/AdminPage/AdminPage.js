@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useStyles } from "./Comps/AdminPage.style";
 import { List, ListItem, ListItemText } from "@material-ui/core";
-
 import RenderPage from "./Comps/RenderPage";
 import AdminPageContext from "../../context/AdminPageContext";
 const links = [
@@ -21,7 +20,7 @@ const AdminPage = () => {
       <List>
         {links.map(({ title, page }) => {
           return (
-            <ListItem button onClick={() => setPage(page)}>
+            <ListItem button onClick={() => setPage(page)} key={title}>
               <ListItemText primary={title} />
             </ListItem>
           );

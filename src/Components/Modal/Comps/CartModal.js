@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import CartContext from "../../../context/CartContext";
 import { Redirect } from "react-router";
 import ModalContext from "../../../context/ModalContext";
+import AppContext from "../../../context/AppContext";
 const CartItem = (props) => {
   const { title, id, price, ammount } = props;
   return (
@@ -33,15 +34,20 @@ function sumTotalPrice(list) {
 function CartModal() {
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState(null);
+  const [unvailable, setUnvailable] = useState(false);
+
   const classes = useStyles();
+
   const { cartState } = useContext(CartContext);
   const { setIsModalOpen } = useContext(ModalContext);
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
     if (redirect) {
       setIsModalOpen();
     }
   }, [redirect]);
+
   const { products } = cartState;
   const handleSumbit = (price) => {
     if (price >= 52) {
@@ -102,6 +108,11 @@ function CartModal() {
       </div>
       {error ? (
         <Typography style={{ color: "red" }}>מינימום הזמנה 52₪</Typography>
+      ) : null}
+      {unvailable ? (
+        <Typography style={{ color: "red" }}>
+          כרגע אנחנו לא זמינים למשלוחים
+        </Typography>
       ) : null}
     </div>
   );

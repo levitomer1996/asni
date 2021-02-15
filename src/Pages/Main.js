@@ -12,11 +12,13 @@ import PaymentPage from "./PaymentPage/PaymentPage";
 import { PaymentProvider } from "../context/PaymentContext";
 import { AdminPageProvider } from "../context/AdminPageContext";
 import ContactusPage from "./ContactusPage/ContactusPage";
-
+import useGetControlPanel from "../hooks/useGetControlPanel";
 function Main() {
   const [isConnectedResolver] = useIsConnectedResolver();
+  const [getControlBoard] = useGetControlPanel();
   useEffect(() => {
     isConnectedResolver();
+    getControlBoard();
   }, []);
   return (
     <Switch>
