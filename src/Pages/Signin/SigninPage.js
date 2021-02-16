@@ -6,10 +6,11 @@ import Button from "@material-ui/core/Button";
 import asni_server from "../../api/asni_server";
 import { Link, Redirect } from "react-router-dom";
 import { Typography, CircularProgress } from "@material-ui/core";
-import useIsConnectedResolver from "../../hooks/useIsConnectedResolver";
+
 import CustomFacebook from "../../Components/Facebooklogin/CustomFacebook";
 import firebase from "firebase/app";
 import "firebase/auth";
+import useAppInitializer from "../../hooks/useAppInitializer";
 
 const SigninPage = () => {
   const classes = useStyles();
@@ -18,9 +19,9 @@ const SigninPage = () => {
   const [spinner, setSpinner] = useState(false);
   const [error, setError] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [isConnectedResolver] = useIsConnectedResolver();
+  const { isConnectedResolver } = useAppInitializer();
   var facebook_provider = new firebase.auth.FacebookAuthProvider();
-
+  facebook_provider.addScope("user_birthday");
   function facebookSignInPopup(provider) {
     setSpinner(true);
     firebase
@@ -33,7 +34,7 @@ const SigninPage = () => {
         var user = result.user;
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var accessToken = credential.accessToken;
-
+        console.log(user);
         asni_server
           .post("/facebooksignin", {
             id: user.uid,

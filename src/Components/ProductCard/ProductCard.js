@@ -19,6 +19,19 @@ export default function ProductCard(props) {
   const { title, price, img_url, description, id, spinner, share_link } = props;
   const { setIsModalOpen } = useContext(ModalContext);
   const { addProduct } = useContext(CartContext);
+
+  const add_product = (p) => {
+    addProduct(p);
+    let ls = localStorage.getItem("asni_cart");
+    if (ls) {
+      let l = JSON.parse(ls);
+      localStorage.setItem("asni_cart", JSON.stringify([...l, p]));
+    } else {
+      localStorage.setItem("asni_cart", JSON.stringify([p]));
+    }
+    addProduct(p);
+  };
+
   const classes = useStyles();
   if (spinner) {
     return <CircularProgress />;
@@ -80,7 +93,7 @@ export default function ProductCard(props) {
           endIcon={<ShoppingCartIcon />}
           style={{ backgroundColor: "#890689" }}
           onClick={() => {
-            addProduct({ title, price, img_url, description, id });
+            add_product({ title, price, img_url, description, id });
           }}
         >
           הוסף לעגלה

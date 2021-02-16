@@ -69,8 +69,15 @@ const PaymentReducer = (state, action) => {
         ...state,
         paymentForm: { ...state.paymentForm, cvv: action.payload },
       };
+    //Paypal actions
     case "set_paypal_complete":
-      return { ...state, isPaypalTransectionComplete: action.payload };
+      return {
+        ...state,
+        isPaypalTransectionComplete: {
+          isComplete: true,
+          PaypalTransection: action.payload,
+        },
+      };
     default:
       break;
   }
@@ -81,6 +88,7 @@ export const PaymentProvider = ({ children }) => {
     isButtonDisabled: false,
     adressForm: {},
     paymentForm: {},
+    //Paypal
     isPaypalTransectionComplete: {
       isComplete: false,
       PaypalTransection: null,
@@ -132,6 +140,8 @@ export const PaymentProvider = ({ children }) => {
   const setType = (data) => {
     d("set_type", data);
   };
+
+  //Paypal actions
   const setPaypalTransectionCompleted = (data) => {
     d("set_paypal_complete", data);
   };

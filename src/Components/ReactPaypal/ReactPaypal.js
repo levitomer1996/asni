@@ -15,7 +15,7 @@ export default function ReactPaypal() {
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "Some product",
+                description: "חבילת ישיבות אסני",
                 amount: {
                   currency_code: "ILS",
                   value: totalPrice,
@@ -27,24 +27,38 @@ export default function ReactPaypal() {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           if (order.status === "COMPLETED") {
+            const { payer, id, create_time, purchase_units } = order;
+            const { name, payer_id, adress, email_address } = payer;
+            const { given_name, surname } = name;
+            console.log({
+              given_name,
+              surname,
+              id,
+              email_address,
+              products,
+              totalPrice,
+            });
             setPaypalTransectionCompleted({
-              isComplete: true,
-              PaypalTransection: order,
+              given_name,
+              surname,
+              id,
+              email_address,
+              products,
+              totalPrice,
+            });
+
+            asni_server.post("/addtransaction", {
+              id,
+              create_time,
+              totalPrice,
+              given_name,
+              surname,
+              payer_id,
+              products,
+              email: email_address,
             });
           }
           console.log(order);
-          const { payer, id, create_time, purchase_units } = order;
-          const { given_name, surname, payer_id } = payer;
-          console.log(payer, id, create_time, purchase_units);
-          asni_server.post("/addtransaction", {
-            id,
-            create_time,
-            totalPrice,
-            given_name,
-            surname,
-            payer_id,
-            products,
-          });
         },
         onError: (err) => {
           console.log(err);

@@ -1,14 +1,13 @@
 import React, { useEffect, useContext } from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import { PayPalButton } from "react-paypal-button-v2";
+
+import { Grid, TextField, Typography } from "@material-ui/core";
 import BootStrapInput from "../../../Components/BootstrapInput/BootstrapInput";
-import * as CreditCard from "credit-card";
-import PaymentContext from "../../../context/PaymentContext";
 import BootstrapSelectInput from "../../../Components/BootstrapInput/BootstrapSelectInput";
+import ReactPaypal from "../../../Components/ReactPaypal/ReactPaypal";
+
 import validateCard from "./validateCard";
 
+import PaymentContext from "../../../context/PaymentContext";
 import CartContext from "../../../context/CartContext";
 export default function PaymentForm() {
   const { cartState } = useContext(CartContext);
@@ -104,6 +103,9 @@ export default function PaymentForm() {
         </Grid>
         <Grid item>
           <Typography>שלמו עם Paypal</Typography>
+        </Grid>
+        <Grid item>
+          <ReactPaypal />
         </Grid>
       </Grid>
     </div>

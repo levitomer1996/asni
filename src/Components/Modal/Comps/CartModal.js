@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Zoom, Button } from "@material-ui/core";
+
 import useStyles from "./Modal.style";
-import Button from "@material-ui/core/Button";
-import CartContext from "../../../context/CartContext";
 import { Redirect } from "react-router";
+
+import CartContext from "../../../context/CartContext";
 import ModalContext from "../../../context/ModalContext";
 import AppContext from "../../../context/AppContext";
+
+import { sumTotalPrice } from "../../../handlers/handlers";
+
 const CartItem = (props) => {
   const { title, id, price, ammount } = props;
   return (
@@ -23,13 +27,6 @@ const CartItem = (props) => {
     </Grid>
   );
 };
-function sumTotalPrice(list) {
-  let total = 0;
-  for (let index = 0; index < list.length; index++) {
-    total = total + list[index].price * list[index].ammount;
-  }
-  return total;
-}
 
 function CartModal() {
   const [redirect, setRedirect] = useState(false);
@@ -73,48 +70,50 @@ function CartModal() {
   }
 
   return (
-    <div>
-      {redirect ? <Redirect to="/payment" /> : null}
-      <div className={classes.cart_container}>
-        {products.map((prod) => {
-          return (
-            <CartItem
-              title={prod.title}
-              price={prod.price}
-              key={prod.id}
-              ammount={prod.ammount}
-            />
-          );
-        })}
+    <Zoom in={true}>
+      <div>
+        {redirect ? <Redirect to="/payment" /> : null}
+        <div className={classes.cart_container}>
+          {products.map((prod) => {
+            return (
+              <CartItem
+                title={prod.title}
+                price={prod.price}
+                key={prod.id}
+                ammount={prod.ammount}
+              />
+            );
+          })}
+        </div>
+        <div className={classes.cart_modal_btn}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: 20, backgroundColor: "rgb(137, 6, 137)" }}
+          >
+            הוסף עוד מוצרים לעגלה
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ backgroundColor: "#d92c4b" }}
+            onClick={() => {
+              handleSumbit(sumTotalPrice(products));
+            }}
+          >
+            ₪{sumTotalPrice(products)} המשך לתשלום
+          </Button>
+        </div>
+        {error ? (
+          <Typography style={{ color: "red" }}>מינימום הזמנה 52₪</Typography>
+        ) : null}
+        {unvailable ? (
+          <Typography style={{ color: "red" }}>
+            כרגע אנחנו לא זמינים למשלוחים
+          </Typography>
+        ) : null}
       </div>
-      <div className={classes.cart_modal_btn}>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ marginLeft: 20, backgroundColor: "rgb(137, 6, 137)" }}
-        >
-          הוסף עוד מוצרים לעגלה
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ backgroundColor: "#d92c4b" }}
-          onClick={() => {
-            handleSumbit(sumTotalPrice(products));
-          }}
-        >
-          ₪{sumTotalPrice(products)} המשך לתשלום
-        </Button>
-      </div>
-      {error ? (
-        <Typography style={{ color: "red" }}>מינימום הזמנה 52₪</Typography>
-      ) : null}
-      {unvailable ? (
-        <Typography style={{ color: "red" }}>
-          כרגע אנחנו לא זמינים למשלוחים
-        </Typography>
-      ) : null}
-    </div>
+    </Zoom>
   );
 }
 
